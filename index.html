@@ -23,13 +23,12 @@
 </head>
 <body>
     <h1>zkSync Era Testnet Applications</h1>
-    <input type="text" id="searchInput" placeholder="Search...">
     <table>
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Link</th>
+                <th>Name<input type="text" class="searchInput" data-column="0" placeholder="Search..."></th>
+                <th>Description<input type="text" class="searchInput" data-column="1" placeholder="Search..."></th>
+                <th>Link<input type="text" class="searchInput" data-column="2" placeholder="Search..."></th>
             </tr>
         </thead>
         <tbody id="tableBody">
@@ -48,10 +47,11 @@
     </table>
     <script>
         $(document).ready(function () {
-            $("#searchInput").on("keyup", function () {
+            $(".searchInput").on("keyup", function () {
+                let columnIndex = $(this).data("column");
                 let value = $(this).val().toLowerCase();
                 $("#tableBody tr").filter(function () {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                    $(this).toggle($(this).find('td:eq(' + columnIndex + ')').text().toLowerCase().indexOf(value) > -1);
                 });
             });
         });
