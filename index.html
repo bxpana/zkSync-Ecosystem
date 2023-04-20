@@ -4,68 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>zkSync Era Testnet Applications</title>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        /* Add your custom CSS styles here */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
+
+    <!-- DataTables JS -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 </head>
 <body>
     <h1>zkSync Era Testnet Applications</h1>
-    <table>
+    <table id="myTable">
         <thead>
             <tr>
-                <th>Live on Lite<input type="text" class="searchInput" data-column="0" placeholder="Search..."></th>
-                <th>Live on Era<input type="text" class="searchInput" data-column="1" placeholder="Search..."></th>
-                <th>Project<input type="text" class="searchInput" data-column="2" placeholder="Search..."></th>
-                <th>Description<input type="text" class="searchInput" data-column="3" placeholder="Search..."></th>
-                <th>Type<input type="text" class="searchInput" data-column="4" placeholder="Search..."></th>
-                <th>Link<input type="text" class="searchInput" data-column="5" placeholder="Search..."></th>
-                <th>Support<input type="text" class="searchInput" data-column="6" placeholder="Search..."></th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Link</th>
             </tr>
         </thead>
-        <tbody id="tableBody">
+        <tbody>
             <tr>
-                <!-- Live on Lite --><td>Yes</td>
-                <!-- Live on Era --><td>Yes</td>
-                <!-- Project --><td>Argent</td>
-                <!-- Desicription --><td>Get the best of Ethereum for up to 100x lower fees.</td>
-                <!-- Type --><td>Wallet</td>
-                <!-- Link --><td><a href="https://www.argent.xyz/">https://www.argent.xyz/</a></td>
-                <!-- Support Link --><td><a href="https://support.argent.xyz/hc/en-us">https://support.argent.xyz/hc/en-us</a></td>
+                <td>ZKSwap</td>
+                <td>zkSync-powered DEX</td>
+                <td><a href="https://zks.app">https://zks.app</a></td>
             </tr>
             <tr>
-                <!-- Live on Lite --><td>No</td>
-                <!-- Live on Era --><td>Yes</td>
-                <!-- Project --><td>Mute.io</td>
-                <!-- Desicription --><td>Mute makes cryptocurrency more accessible by providing an L2 based AMM DEX and DeFi suite that utilizes ZK-Rollup scalability.</td>
-                <!-- Type --><td>DeFi</td>
-                <!-- Link --><td><a href="https://mute.io/">https://mute.io/</a></td>
-                <!-- Support Link --><td><a href="https://discord.com/invite/muteio">https://discord.com/invite/muteio</a></td>
+                <td>zkSync NFT</td>
+                <td>zkSync-powered NFT platform</td>
+                <td><a href="https://nft.zksync.io">https://nft.zksync.io</a></td>
             </tr>
             <!-- Add more rows as needed -->
         </tbody>
     </table>
     <script>
-        $(document).ready(function () {
-            $(".searchInput").on("keyup", function () {
-                let columnIndex = $(this).data("column");
-                let value = $(this).val().toLowerCase();
-                $("#tableBody tr").filter(function () {
-                    $(this).toggle($(this).find('td:eq(' + columnIndex + ')').text().toLowerCase().indexOf(value) > -1);
-                });
-            });
+        $(document).ready(function() {
+            $('#myTable').DataTable();
         });
     </script>
 </body>
