@@ -26,53 +26,51 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     
     <style>
-    /* Set min-height and radial gradient background */
-    html, body {
-        min-height: 100vh;
-        background-image: radial-gradient(ellipse at top, #1e69ff, transparent),
-                      radial-gradient(ellipse at bottom, #000000, transparent);
-        font-family: 'Space Grotesk', sans-serif;
-        margin: 0;
+    /* General styles */
+    body {
+        font-family: 'FK Grotesk', sans-serif;
+        background: radial-gradient(ellipse at center, #e66465, #4d9f0c, #000000);
+        color: #333;
     }
-
-    /* Set title color to white */
     h1 {
         color: white;
     }
-    /* Select2 customizations */
-        .select2-container {
-            width: 100% !important;
-            
-    #myTable_wrapper .dataTables_info,
-    #myTable_wrapper .dataTables_paginate,
-    #myTable_wrapper .dataTables_length,
-    #myTable_wrapper .dataTables_filter label {
-        color: black;
+
+    /* DataTables styles */
+    .dataTables_wrapper .dataTables_info,
+    .dataTables_wrapper .dataTables_paginate,
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter label,
+    .dataTables_wrapper .dataTables_filter input,
+    .dataTables_wrapper .dataTables_length select {
+        color: black !important;
     }
+
     /* Fix table borders */
-#myTable, #myTable th, #myTable td {
-    border: 1px solid #ddd !important;
-}
-
-#myTable th {
-    border-bottom: 2px solid #ddd !important;
-}
-
-
-    /* Add your custom CSS styles here */
-    table {
+    #myTable {
+        border-collapse: collapse !important;
         width: 100%;
-        border-collapse: collapse;
     }
-    th, td {
-        border: 1px solid black;
+    #myTable th, #myTable td {
+        border: 1px solid #ddd !important;
         padding: 8px;
-        text-align: left;
     }
-    th {
+    #myTable tr:nth-child(even) {
         background-color: #f2f2f2;
     }
+    #myTable tr:hover {
+        background-color: #ddd;
+    }
+    #myTable th {
+        border-bottom: 2px solid #ddd !important;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #f1f1f1;
+        color: black;
+    }
 </style>
+
 
 </head>
 <body>
