@@ -74,6 +74,18 @@
     #myTable th {
         vertical-align: middle;
     }
+        .select2-container--default .select2-selection--single {
+    height: 34px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 32px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 32px;
+}
+
 </style>
 
 
@@ -83,8 +95,8 @@
     <table id="myTable">
         <thead>
     <tr>
-        <th>Live on Lite<select id="live-on-lite-filter" class="searchInput" data-column="0"></select></th>
-        <th>Live on Era<select id="live-on-era-filter" class="searchInput" data-column="1"></select></th>
+        <th>Lite<select id="live-on-lite-filter" class="searchInput" data-column="0"></select></th>
+        <th>Era<select id="live-on-era-filter" class="searchInput" data-column="1"></select></th>
         <th>Project<input type="text" class="searchInput" data-column="2" placeholder="Search..."></th>
         <th>Description<input type="text" class="searchInput" data-column="3" placeholder="Search..."></th>
         <th>Type<select id="type-filter" class="searchInput" data-column="4"></select></th>
@@ -263,10 +275,12 @@ $(document).ready(function() {
         "lengthMenu": [[-1], ["All"]],
         "columnDefs": [
             { "orderable": false, "targets": [0, 1, 4] }
-        ]
+        ],
+        "order": [] // Disable initial sort
     });
 });
 </script>
+
 
 </
 
