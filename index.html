@@ -18,46 +18,45 @@
 
     <!-- DataTables JS -->
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-
-    <style>
-        /* Add gradient background */
-        body {
-    background-image: radial-gradient(ellipse at top, #000000, transparent),
+<style>
+    /* Set min-height and radial gradient background */
+    html, body {
+        min-height: 100vh;
+        background-image: radial-gradient(ellipse at top, #000000, transparent),
                       radial-gradient(ellipse at bottom, #1e69ff, transparent);
-    font-family: 'Space Grotesk', sans-serif;
-}
+        font-family: 'Space Grotesk', sans-serif;
+        margin: 0;
+    }
 
-        h1 {
+    /* Set title color to white */
+    h1 {
         color: white;
     }
-         .dataTables_info,
-    .dataTables_paginate {
-        color: black;
-        /* Add your custom CSS styles here */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        html, body {
-    min-height: 100vh;
-    background-image: radial-gradient(ellipse at top, #000000, transparent),
-                      radial-gradient(ellipse at bottom, #1e69ff, transparent);
-    font-family: 'Space Grotesk', sans-serif;
-    margin: 0;
-}
 
-    </style>
+    /* Change DataTables text color outside the table */
+    #myTable_wrapper .dataTables_info,
+    #myTable_wrapper .dataTables_paginate {
+        color: black;
+    }
+
+    /* Add your custom CSS styles here */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+
 </head>
 <body>
-    <h1><img src="https://raw.githubusercontent.com/bxpana/zksync-community-brand-assets/b73d0989270c356789552bb844d68027a7e8fd47/zkSync/zkSync%20Era%E2%88%8E%20/era-arrows-white.png" alt="zkSync Era Logo" style="vertical-align: middle; width: 40px;"> zkSync Era Testnet Applications</h1>
+    <h1><img src="https://raw.githubusercontent.com/bxpana/zksync-community-brand-assets/b73d0989270c356789552bb844d68027a7e8fd47/zkSync/zkSync%20Era%E2%88%8E%20/era-arrows-white.png" alt="zkSync Era Logo" style="vertical-align: middle; width: 80px;"> zkSync Era Testnet Applications</h1>
     <table id="myTable">
         <thead>
             <tr>
