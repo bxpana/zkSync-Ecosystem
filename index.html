@@ -74,7 +74,7 @@
     #myTable th {
         vertical-align: middle;
     }
-        .select2-container--default .select2-selection--single {
+       .select2-container--default .select2-selection--single {
     height: 34px;
 }
 
@@ -84,6 +84,11 @@
 
 .select2-container--default .select2-selection--single .select2-selection__arrow {
     height: 32px;
+}
+
+/* Fix the select2 box width */
+.select2-container {
+    width: 100% !important;
 }
 
 </style>
@@ -228,7 +233,7 @@
     
         </tbody>
     </table>
-  <script>
+<script>
 $(document).ready(function() {
     var table = $('#myTable').DataTable({
         initComplete: function() {
@@ -280,7 +285,6 @@ $(document).ready(function() {
     });
 });
 </script>
-
 
 </
 
