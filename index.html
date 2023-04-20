@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zkSync Era Testnet Applications</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Add your custom CSS styles here */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>zkSync Era Testnet Applications</h1>
+    <input type="text" id="searchInput" placeholder="Search...">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <tr>
+                <td>ZKSwap</td>
+                <td>zkSync-powered DEX</td>
+                <td><a href="https://zks.app">https://zks.app</a></td>
+            </tr>
+            <tr>
+                <td>zkSync NFT</td>
+                <td>zkSync-powered NFT platform</td>
+                <td><a href="https://nft.zksync.io">https://nft.zksync.io</a></td>
+            </tr>
+            <!-- Add more rows as needed -->
+        </tbody>
+    </table>
+    <script>
+        $(document).ready(function () {
+            $("#searchInput").on("keyup", function () {
+                let value = $(this).val().toLowerCase();
+                $("#tableBody tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
