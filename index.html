@@ -255,8 +255,6 @@ $(document).ready(function() {
         ]
     });
 
-    table.order([Math.floor(Math.random() * table.columns().count()), 'asc']).draw();
-
     $(".select2").select2({
         placeholder: "Select...",
         allowClear: true
@@ -267,7 +265,10 @@ $(document).ready(function() {
             .search(values.length > 0 ? '^(' + values.join('|') + ')$' : '', true, false)
             .draw();
     });
+
+    table.order([Math.floor(Math.random() * table.columns().count()), 'asc']).draw();
 });
 </script>
+
 
 </
