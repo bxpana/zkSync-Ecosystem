@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>zkSync Era Testnet Applications</title>
 
+    <!-- Import FK Grotesk font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 
@@ -13,15 +18,37 @@
 
     <!-- DataTables JS -->
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+    <style>
+        /* Add gradient background */
+        body {
+            background-image: linear-gradient(to right, #6190E8, #A7BFE8);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Add your custom CSS styles here */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
     <h1>zkSync Era Testnet Applications</h1>
     <table id="myTable">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Link</th>
+                <th>Name<div><input type="text" class="column-search" data-column="0" placeholder="Search..."></div></th>
+                <th>Description<div><input type="text" class="column-search" data-column="1" placeholder="Search..."></div></th>
+                <th>Link<div><input type="text" class="column-search" data-column="2" placeholder="Search..."></div></th>
             </tr>
         </thead>
         <tbody>
@@ -40,8 +67,17 @@
     </table>
     <script>
         $(document).ready(function() {
-            $('#myTable').DataTable();
+            // Initialize DataTable
+            var table = $('#myTable').DataTable();
+
+            // Add event listeners to the search input fields
+            $('.column-search').on('keyup change', function() {
+                var columnIndex = $(this).data('column');
+                table
+                    .column(columnIndex)
+                    .search(this.value)
+                    .draw();
+            });
         });
     </script>
-</body>
-</html>
+</
