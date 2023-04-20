@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>zkSync Era Testnet Applications</title>
+    <title>zkSync Ecosystem</title>
 
     <!-- Import FK Grotesk font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +18,14 @@
 
     <!-- DataTables JS -->
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<style>
+    
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
+    <style>
     /* Set min-height and radial gradient background */
     html, body {
         min-height: 100vh;
@@ -32,11 +39,18 @@
     h1 {
         color: white;
     }
-
+    /* Select2 customizations */
+        .select2-container {
+            width: 100% !important;
+            
     /* Change DataTables text color outside the table */
     #myTable_wrapper .dataTables_info,
-    #myTable_wrapper .dataTables_paginate {
-        color: black;
+#myTable_wrapper .dataTables_paginate,
+#myTable_wrapper .dataTables_length,
+#myTable_wrapper .dataTables_filter label {
+    color: black;
+}
+
     }
 
     /* Add your custom CSS styles here */
@@ -64,7 +78,15 @@
                 <th>Live on Era<input type="text" class="searchInput" data-column="1" placeholder="Search..."></th>
                 <th>Project<input type="text" class="searchInput" data-column="2" placeholder="Search..."></th>
                 <th>Description<input type="text" class="searchInput" data-column="3" placeholder="Search..."></th>
-                <th>Type<input type="text" class="searchInput" data-column="4" placeholder="Search..."></th>
+                <th>Type
+                    <div>
+                        <select id="type-filter" multiple>
+                            <option value="Wallet">Type1</option>
+                            <option value="NFT">Type2</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                    </div>
+                </th>
                 <th>Link<input type="text" class="searchInput" data-column="5" placeholder="Search..."></th>
                 <th>Support<input type="text" class="searchInput" data-column="6" placeholder="Search..."></th>
             </tr>
@@ -198,13 +220,22 @@
              <!-- Link --><td><a href=""></a></td>
              <!-- Support Link --><td><a href=""></a></td> 
             </tr>
-            -->
+    -->
         </tbody>
     </table>
     <script>
         $(document).ready(function() {
             // Initialize DataTable
             var table = $('#myTable').DataTable();
+            // Initialize the multi-select dropdown for the "Type" column
+$('#type-filter').select2();
+
+// Apply the filter to the DataTable when the selected values change
+$('#type-filter').on('change', function() {
+    var selectedValues = $(this).val() || [];
+    var regex = selectedValues.join('|');
+    table.column(4).search(regex, true, false).draw();
+});
 
             // Add event listeners to the search input fields
             $('.column-search').on('keyup change', function() {
