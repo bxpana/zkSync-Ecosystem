@@ -232,16 +232,7 @@ $(document).ready(function() {
         initComplete: function() {
             this.api().columns().every(function() {
                 var column = this;
-                if (column.index() === 4) {
-                    var select = $(column.header()).children('select');
-                    $(".select2").select2({
-                        placeholder: "Select...",
-                        allowClear: true
-                    }).on('change', function() {
-                        var values = $(this).val();
-                        column.search(values.length > 0 ? '^(' + values.join('|') + ')$' : '', true, false).draw();
-                    });
-                } else {
+                if (column.index() !== 4) {
                     var input = $(column.header()).children('input');
                     if (input.length) {
                         $(input).on('keyup change clear', function() {
@@ -260,9 +251,18 @@ $(document).ready(function() {
             { "orderable": false, "targets": 4 }
         ]
     });
+
+    // Initialize the multi-select dropdown for the "Type" column
+    $('#type-filter').select2();
+
+    // Apply the filter to the DataTable when the selected values change
+    $('#type-filter').on('change', function() {
+        var selectedValues = $(this).val() || [];
+        var regex = selectedValues.join('|');
+        table.column(4).search(regex, true, false).draw();
+    });
 });
 </script>
-
 
 </
 
