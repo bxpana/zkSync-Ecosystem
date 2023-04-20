@@ -82,8 +82,8 @@
     <table id="myTable">
         <thead>
             <tr>
-                <th>Live on Lite<input type="text" class="searchInput" data-column="0" placeholder="Search..."></th>
-                <th>Live on Era<input type="text" class="searchInput" data-column="1" placeholder="Search..."></th>
+                <th>Live on Lite<select id="live-on-lite-filter" multiple></select></th>
+                <th>Live on Era<select id="live-on-era-filter" multiple></select></th>
                 <th>Project<input type="text" class="searchInput" data-column="2" placeholder="Search..."></th>
                 <th>Description<input type="text" class="searchInput" data-column="3" placeholder="Search..."></th>
                 <th>Type
@@ -232,7 +232,28 @@ $(document).ready(function() {
         initComplete: function() {
             this.api().columns().every(function() {
                 var column = this;
-                if (column.index() !== 4) {
+                if (column.index() === 4) {
+                    var select = $(column.header()).children('select');
+                    select.select2({
+                        placeholder: "Select...",
+                        allowClear: true
+                    }).on('change', function() {
+                        var values = $(this).val();
+                        column.search(values.length > 0 ? '^(' + values.join('|') + ')$' : '', true, false).draw();
+                    });
+                } else if (column.index() === 0 || column.index() === 1) {
+                    var select = $(column.header()).children('select');
+                    select.select2({
+                        data: [
+                            {id: "❌", text: "❌"},
+                            {id: "✅", text: "✅"}
+                        ]
+                    }).on('change', function() {
+                        var selectedValues = $(this).val() || [];
+                        var regex = selectedValues.join('|');
+                        table.column($(this).closest('th').index()).search(regex, true, false).draw();
+                    });
+                } else {
                     var input = $(column.header()).children('input');
                     if (input.length) {
                         $(input).on('keyup change clear', function() {
@@ -248,21 +269,19 @@ $(document).ready(function() {
         },
         "lengthMenu": [[-1], ["All"]],
         "columnDefs": [
-            { "orderable": false, "targets": 4 }
+            { "orderable": false, "targets": [0, 1, 4] }
         ]
     });
 
-    // Initialize the multi-select dropdown for the "Type" column
-    $('#type-filter').select2();
-
     // Apply the filter to the DataTable when the selected values change
-    $('#type-filter').on('change', function() {
+    $('#live-on-lite-filter, #live-on-era-filter').on('change', function() {
         var selectedValues = $(this).val() || [];
         var regex = selectedValues.join('|');
-        table.column(4).search(regex, true, false).draw();
+        table.column($(this).closest('th').index()).search(regex, true, false).draw();
     });
 });
 </script>
+
 
 </
 
