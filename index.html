@@ -227,27 +227,47 @@
         </tbody>
     </table>
     <script>
-        $(document).ready(function() {
-            // Initialize DataTable
-            var table = $('#myTable').DataTable();
-            // Initialize the multi-select dropdown for the "Type" column
-$('#type-filter').select2();
-
-// Apply the filter to the DataTable when the selected values change
-$('#type-filter').on('change', function() {
-    var selectedValues = $(this).val() || [];
-    var regex = selectedValues.join('|');
-    table.column(4).search(regex, true, false).draw();
-});
-
-            // Add event listeners to the search input fields
-            $('.column-search').on('keyup change', function() {
-                var columnIndex = $(this).data('column');
-                table
-                    .column(columnIndex)
-                    .search(this.value)
-                    .draw();
+$(document).ready(function() {
+    var table = $('#myTable').DataTable({
+        initComplete: function() {
+            this.api().columns().every(function() {
+                var column = this;
+                if (column.index() === 4) {
+                    return;
+                }
+                var input = $(column.header()).children('input');
+                if (input.length) {
+                    $(input).on('keyup change clear', function() {
+                        column.search($(this).val(), false, false, true).draw();
+                    });
+                }
             });
-        });
-    </script>
+
+            $("#myTable_filter").detach().appendTo('#myTable thead tr:eq(0) th:eq(4)');
+            $(".searchInput").css("width", "100%");
+            $(".searchInput").css("margin-top", "8px");
+            $(".searchInput").css("margin-bottom", "8px");
+        },
+        "lengthMenu": [[-1], ["All"]],
+        "order": [],
+        "columnDefs": [
+            { "orderable": false, "targets": 4 }
+        ]
+    });
+
+    table.order([Math.floor(Math.random() * table.columns().count()), 'asc']).draw();
+
+    $(".select2").select2({
+        placeholder: "Select...",
+        allowClear: true
+    }).on('change', function() {
+        var values = $(this).val();
+        var filteredData = table
+            .column(4)
+            .search(values.length > 0 ? '^(' + values.join('|') + ')$' : '', true, false)
+            .draw();
+    });
+});
+</script>
+
 </
