@@ -232,11 +232,18 @@ $(document).ready(function() {
         initComplete: function() {
             this.api().columns().every(function() {
                 var column = this;
-                if (column.index() === 4) {
-                    return;
-                }
                 var input = $(column.header()).children('input');
-                if (input.length) {
+                var select = $(column.header()).children('select');
+
+                if (column.index() === 4 && select.length) {
+                    $(".select2").select2({
+                        placeholder: "Select...",
+                        allowClear: true
+                    }).on('change', function() {
+                        var values = $(this).val();
+                        column.search(values.length > 0 ? '^(' + values.join('|') + ')$' : '', true, false).draw();
+                    });
+                } else if (input.length) {
                     $(input).on('keyup change clear', function() {
                         column.search($(this).val(), false, false, true).draw();
                     });
@@ -255,20 +262,9 @@ $(document).ready(function() {
         ]
     });
 
-    $(".select2").select2({
-        placeholder: "Select...",
-        allowClear: true
-    }).on('change', function() {
-        var values = $(this).val();
-        var filteredData = table
-            .column(4)
-            .search(values.length > 0 ? '^(' + values.join('|') + ')$' : '', true, false)
-            .draw();
-    });
-
     table.order([Math.floor(Math.random() * table.columns().count()), 'asc']).draw();
 });
 </script>
 
-
-</
+    </body>
+    </html>
