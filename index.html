@@ -44,15 +44,14 @@
             width: 100% !important;
             
     /* Change DataTables text color outside the table */
-#myTable_wrapper .dataTables_info,
-#myTable_wrapper .dataTables_paginate,
-#myTable_wrapper .dataTables_length,
-#myTable_wrapper .dataTables_filter label,
-#myTable_wrapper .dataTables_filter input,
-#myTable_wrapper .dataTables_length select {
-    color: black;
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate,
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter label,
+.dataTables_wrapper .dataTables_filter input,
+.dataTables_wrapper .dataTables_length select {
+    color: black !important;
 }
-
 
     /* Add your custom CSS styles here */
     table {
@@ -84,10 +83,10 @@
                         <select id="type-filter" multiple>
                             <option value="Wallet">Wallet</option>
                             <option value="NFT">NFT</option>
-                            <option value="NFT">DeFi</option>
-                            <option value="NFT">Infrastructure</option>
-                            <option value="NFT">Social</option>
-                            <option value="NFT">Bridge</option>
+                            <option value="DeFi">DeFi</option>
+                            <option value="Infrastructure">Infrastructure</option>
+                            <option value="Social">Social</option>
+                            <option value="Bridge">Bridge</option>
                             <!-- Add more options as needed -->
                         </select>
                     </div>
