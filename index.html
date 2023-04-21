@@ -100,11 +100,39 @@
     <table id="myTable">
         <thead>
     <tr>
-        <th>Lite<select id="live-on-lite-filter" class="searchInput" data-column="0"></select></th>
-        <th>Era<select id="live-on-era-filter" class="searchInput" data-column="1"></select></th>
+        <th>Lite
+                    <div>
+                        <select id="lite-filter" multiple>
+                            <option value="✅">✅</option>
+                            <option value="❌">❌</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                    </div>
+                </th>
+        <th>Era
+                    <div>
+                        <select id="era-filter" multiple>
+                            <option value="✅">✅</option>
+                            <option value="❌">❌</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                    </div>
+                </th>
         <th>Project<input type="text" class="searchInput" data-column="2" placeholder="Search..."></th>
         <th>Description<input type="text" class="searchInput" data-column="3" placeholder="Search..."></th>
-        <th>Type<select id="type-filter" class="searchInput" data-column="4"></select></th>
+        <th>Type
+                    <div>
+                        <select id="type-filter" multiple>
+                            <option value="Wallet">Wallet</option>
+                            <option value="NFT">NFT</option>
+                            <option value="DeFi">DeFi</option>
+                            <option value="Infrastructure">Infrastructure</option>
+                            <option value="Social">Social</option>
+                            <option value="Bridge">Bridge</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                    </div>
+                </th>
         <th>Link<input type="text" class="searchInput" data-column="5" placeholder="Search..."></th>
         <th>Support<input type="text" class="searchInput" data-column="6" placeholder="Search..."></th>
     </tr>
@@ -234,57 +262,29 @@
         </tbody>
     </table>
 <script>
-$(document).ready(function() {
-    var table = $('#myTable').DataTable({
-        initComplete: function() {
-            this.api().columns().every(function() {
-                var column = this;
-                if (column.index() === 4) {
-                    var select = $(column.header()).children('select');
-                    select.select2({
-                        placeholder: "Select...",
-                        allowClear: true
-                    }).on('change', function() {
-                        var selectedValues = $(this).val() || [];
-                        var regex = selectedValues.join('|');
-                        table.column(column.index()).search(regex, true, false).draw();
-                    });
-                } else if (column.index() === 0 || column.index() === 1) {
-                    var select = $(column.header()).children('select');
-                    select.select2({
-                        data: [
-                            {id: "❌", text: "❌"},
-                            {id: "✅", text: "✅"}
-                        ],
-                        placeholder: "Select...",
-                        allowClear: true
-                    }).on('change', function() {
-                        var selectedValues = $(this).val() || [];
-                        var regex = selectedValues.join('|');
-                        table.column(column.index()).search(regex, true, false).draw();
-                    });
-                } else {
-                    var input = $(column.header()).children('input');
-                    if (input.length) {
-                        $(input).on('keyup change clear', function() {
-                            column.search($(this).val(), false, false, true).draw();
-                        });
-                    }
-                }
-            });
+        $(document).ready(function() {
+            // Initialize DataTable
+            var table = $('#myTable').DataTable();
+            // Initialize the multi-select dropdown for the "Type" column
+$('#type-filter').select2();
 
-            $(".searchInput").css("width", "100%");
-            $(".searchInput").css("margin-top", "8px");
-            $(".searchInput").css("margin-bottom", "8px");
-        },
-        "lengthMenu": [[-1], ["All"]],
-        "columnDefs": [
-            { "orderable": false, "targets": [0, 1, 4] }
-        ],
-        "order": [] // Disable initial sort
-    });
+// Apply the filter to the DataTable when the selected values change
+$('#type-filter').on('change', function() {
+    var selectedValues = $(this).val() || [];
+    var regex = selectedValues.join('|');
+    table.column(4).search(regex, true, false).draw();
 });
-</script>
+
+            // Add event listeners to the search input fields
+            $('.column-search').on('keyup change', function() {
+                var columnIndex = $(this).data('column');
+                table
+                    .column(columnIndex)
+                    .search(this.value)
+                    .draw();
+            });
+        });
+    </script>
 
 </
 
